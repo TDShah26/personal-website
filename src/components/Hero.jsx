@@ -36,21 +36,46 @@ const PORTFOLIO_IMAGES = [
 /* ─────────────────────────────────────────────
    PORTFOLIO CARD
    ───────────────────────────────────────────── */
-function PortfolioCard({ src, label, fit = 'cover' }) {
+function PortfolioCard({ src, label, fit = 'cover', phase, isDesktop }) {
+  const isSplit = phase === 'split';
+  
+  const imgAnimate = isSplit && isDesktop
+    ? { opacity: [0, 0, 1] }
+    : { opacity: 1 };
+  
+  const imgTransition = isSplit && isDesktop
+    ? { duration: SPLIT_DURATION / 1000, times: [0, 0.52, 1], ease: 'easeInOut' }
+    : { duration: 0.2 };
+
   return (
-    <div className="mockup-frame">
-      <img
+    <div
+      className="mockup-frame"
+      style={{
+        backgroundColor: '#FFFFFF',
+        padding: '6px',
+        borderRadius: '8px',
+        boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)',
+        aspectRatio: '1 / 1',
+        overflow: 'hidden',
+        boxSizing: 'border-box',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+      }}
+    >
+      <motion.img
         src={src}
         alt={label}
+        animate={imgAnimate}
+        transition={imgTransition}
         style={{
+          maxWidth: '100%',
+          maxHeight: '100%',
           width: '100%',
-          aspectRatio: '1 / 1',
+          height: '100%',
           objectFit: fit,
           display: 'block',
-          backgroundColor: '#FFFFFF',
-          padding: '6px', // thin even border around the image size
-          borderRadius: '8px',
-          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.4)'
+          borderRadius: '4px',
         }}
       />
     </div>
@@ -139,7 +164,7 @@ export default function Hero() {
   const tanayAnimate = isSplit
     ? (isDesktop
         ? {
-            x: ['0vw', '-28vw', '-28vw'],
+            x: ['0vw', '-26.5vw', '-26.5vw'],
             y: ['-16vh', '-16vh', '0vh'],
           }
         : { x: '0vw', y: '-20vh' })
@@ -148,7 +173,7 @@ export default function Hero() {
   const shahAnimate = isSplit
     ? (isDesktop
         ? {
-            x: ['0vw', '28vw', '28vw'],
+            x: ['0vw', '24vw', '24vw'],
             y: ['16vh', '16vh', '0vh'],
           }
         : { x: '0vw', y: '20vh' })
@@ -166,6 +191,39 @@ export default function Hero() {
         ease: [0.76, 0, 0.24, 1], // graceful curved easing
       };
 
+  const galleryInitial = isDesktop
+    ? { clipPath: 'inset(50% 50% 50% 50%)', x: '-50%', y: '-50%', scale: 0.88 }
+    : { clipPath: 'inset(50% 0 50% 0)', x: '-50%', y: '-50%', scale: 0.88 };
+
+  const galleryAnimate = isDesktop
+    ? {
+        clipPath: ['inset(50% 50% 50% 50%)', 'inset(49.7% 0% 49.7% 0%)', 'inset(0% 0% 0% 0%)'],
+        scale: [0.88, 0.88, 1],
+        x: '-50%',
+        y: '-50%',
+      }
+    : {
+        clipPath: 'inset(0% 0% 0% 0%)',
+        scale: 1,
+        x: '-50%',
+        y: '-50%',
+      };
+
+  const galleryTransition = isDesktop
+    ? {
+        duration: SPLIT_DURATION / 1000,
+        times: [0, 0.52, 1],
+        ease: 'easeInOut',
+      }
+    : {
+        duration: SPLIT_DURATION / 1000,
+        ease: [0.76, 0, 0.24, 1],
+      };
+
+  const slideInitial = phase === 'split' ? { opacity: 1 } : { opacity: 0 };
+  const slideAnimate = { opacity: 1 };
+  const slideTransition = phase === 'split' ? { duration: 0.1 } : { duration: CROSSFADE / 1000 };
+
   // If fonts are not fully loaded, render a black background to prevent FOUT layout shift
   if (!fontsLoaded) {
     return <div className="hero" style={{ backgroundColor: '#0A0A0A' }} />;
@@ -177,9 +235,9 @@ export default function Hero() {
       {/* ── STATIC CHROME — only appears after gallery starts ── */}
       <motion.header
         className="chrome-top"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showGallery ? 1 : 0 }}
-        transition={{ duration: CHROME_FADE / 1000 }}
+        initial={{ opacity: 0, y: -24 }}
+        animate={{ opacity: showGallery ? 1 : 0, y: showGallery ? 0 : -24 }}
+        transition={{ duration: CHROME_FADE / 1000, ease: [0.25, 1, 0.5, 1] }}
       >
         <span className="chrome-name">TANAY SHAH</span>
         <span className="chrome-year">®2026</span>
@@ -187,9 +245,9 @@ export default function Hero() {
 
       <motion.footer
         className="chrome-bottom"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: showGallery ? 1 : 0 }}
-        transition={{ duration: CHROME_FADE / 1000 }}
+        initial={{ opacity: 0, y: 24 }}
+        animate={{ opacity: showGallery ? 1 : 0, y: showGallery ? 0 : 24 }}
+        transition={{ duration: CHROME_FADE / 1000, ease: [0.25, 1, 0.5, 1] }}
       >
         <p className="chrome-bio">
           Builder. Investor. Storyteller.<br />
@@ -215,8 +273,8 @@ export default function Hero() {
               </span>
               <motion.span
                 className="display-name display-name--overlay"
-                initial={{ clipPath: 'inset(0 100% 0 0)' }}
-                animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                initial={{ clipPath: 'inset(-20% 100% -20% 0)' }}
+                animate={{ clipPath: 'inset(-20% 0% -20% 0)' }}
                 transition={{ duration: MASK_DURATION / 1000, ease: [0.76, 0, 0.24, 1] }}
               >
                 Tanay
@@ -225,8 +283,8 @@ export default function Hero() {
               <motion.span
                 className="display-name display-name--ghost"
                 aria-hidden="true"
-                initial={{ opacity: 0.18, clipPath: 'inset(0 100% 0 0)' }}
-                animate={{ opacity: 0,    clipPath: 'inset(0 0% 0 0)' }}
+                initial={{ opacity: 0.18, clipPath: 'inset(-20% 100% -20% 0)' }}
+                animate={{ opacity: 0,    clipPath: 'inset(-20% 0% -20% 0)' }}
                 transition={{ duration: (MASK_DURATION * 1.15) / 1000, ease: [0.76, 0, 0.24, 1] }}
               >
                 Tanay
@@ -237,25 +295,24 @@ export default function Hero() {
 
         {/* GALLERY — always centred at viewport middle */}
         <AnimatePresence>
-          {showGallery && (
+          {isSplit && (
             <motion.div
               className="gallery-container"
               key="gallery"
-              initial={{ opacity: 0, scale: 0.88, x: '-50%', y: '-50%' }}
-              animate={{ opacity: 1, scale: 1,    x: '-50%', y: '-50%' }}
-              transition={{ duration: 0.45, ease: 'easeOut' }}
+              initial={galleryInitial}
+              animate={galleryAnimate}
+              transition={galleryTransition}
             >
               <AnimatePresence mode="popLayout">
                 <motion.div
                   key={imageIndex}
                   className="gallery-slide"
-                  style={{ x: '-50%', y: '-50%' }}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
+                  initial={slideInitial}
+                  animate={slideAnimate}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: CROSSFADE / 1000 }}
+                  transition={slideTransition}
                 >
-                  <PortfolioCard src={currentImage.src} label={currentImage.label} fit={currentImage.fit} />
+                  <PortfolioCard src={currentImage.src} label={currentImage.label} fit={currentImage.fit} phase={phase} isDesktop={isDesktop} />
                 </motion.div>
               </AnimatePresence>
             </motion.div>
@@ -277,17 +334,18 @@ export default function Hero() {
               </span>
               <motion.span
                 className="display-name display-name--overlay"
-                initial={{ clipPath: 'inset(0 100% 0 0)' }}
-                animate={{ clipPath: 'inset(0 0% 0 0)' }}
+                initial={{ clipPath: 'inset(-20% 100% -20% 0)' }}
+                animate={{ clipPath: 'inset(-20% 0% -20% 0)' }}
                 transition={{ duration: MASK_DURATION / 1000, ease: [0.76, 0, 0.24, 1], delay: 0.08 }}
               >
                 Shah
               </motion.span>
+              {/* soft trailing-edge glow */}
               <motion.span
                 className="display-name display-name--ghost"
                 aria-hidden="true"
-                initial={{ opacity: 0.18, clipPath: 'inset(0 100% 0 0)' }}
-                animate={{ opacity: 0,    clipPath: 'inset(0 0% 0 0)' }}
+                initial={{ opacity: 0.18, clipPath: 'inset(-20% 100% -20% 0)' }}
+                animate={{ opacity: 0,    clipPath: 'inset(-20% 0% -20% 0)' }}
                 transition={{ duration: (MASK_DURATION * 1.15) / 1000, ease: [0.76, 0, 0.24, 1], delay: 0.08 }}
               >
                 Shah

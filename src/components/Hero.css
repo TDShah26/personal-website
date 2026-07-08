@@ -7,10 +7,11 @@
   --color-bg:       #0A0A0A;
   --color-fg:       #F5F5F5;
   --color-fg-muted: rgba(245, 245, 245, 0.4);
-  --font-display:   'Big Shoulders Display', 'Space Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-display:   'Inter', 'Helvetica Neue', Arial, sans-serif;
   --font-body:      'Inter', 'Helvetica Neue', Arial, sans-serif;
   --pad-mobile:     24px;
   --pad-desktop:    52px;
+  --gallery-width:  clamp(140px, 16vw, 250px);
 }
 
 /* ── Full-page hero ── */
@@ -112,13 +113,13 @@
 
 .display-name {
   font-family: var(--font-display);
-  font-size: clamp(5rem, 11vw, 11rem); /* Big but won't touch screen edges */
-  font-weight: 800;
-  letter-spacing: 0.01em;
-  line-height: 1.1; /* slightly relaxed line-height to avoid clipping */
+  font-size: clamp(5rem, 9.5vw, 9.5rem); /* Large, heroic scale but safely on screen */
+  font-weight: 900;
+  letter-spacing: -0.03em; /* tight tracking for neo-grotesque style */
+  line-height: 0.95;
   display: block;
   white-space: nowrap;
-  padding: 0 10px; /* give text some breathing room horizontally */
+  padding: 0 10px;
 }
 
 /* Base layer — dark grayish text that is revealed over */
@@ -153,20 +154,22 @@
   top: 50%;
   left: 50%;
   z-index: 4;
+  width: var(--gallery-width);
+  aspect-ratio: 1 / 1;
   /* NO CSS transform — Framer Motion centres via x/y */
 }
 
 .gallery-slide {
-  /* slides also use Framer x/y -50%,-50% centering */
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
+  width: 100%;
+  height: 100%;
 }
 
 /* ── Mockup frame — size adjusted ── */
 .mockup-frame {
-  /* Desktop: wider since it sits between left/right names */
-  width: clamp(140px, 20vw, 300px); /* Increased size */
+  width: 100%;
+  height: 100%;
   filter: drop-shadow(0 8px 28px rgba(0, 0, 0, 0.6));
 }
 
@@ -225,8 +228,7 @@
     font-size: clamp(4.5rem, 18vw, 8rem);
   }
 
-  .mockup-frame {
-    /* Slightly smaller image container on mobile to prevent crowding footer/header */
-    width: clamp(120px, 32vw, 190px);
+  :root {
+    --gallery-width: clamp(120px, 32vw, 190px);
   }
 }
