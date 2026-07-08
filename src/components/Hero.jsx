@@ -25,12 +25,18 @@ const PORTFOLIO_IMAGES = [
   { src: '/gallery/WorldQuant_Text_Logo_2022.jpg', label: 'WORLDQUANT' },
   { src: '/gallery/hptech.jpg', label: 'HP TECH' },
   { src: '/gallery/pharmeasy_logo.jpg', label: 'PHARMEASY' },
+  { src: '/gallery/bitsufc.jpg', label: 'BITS UFC' },
+  { src: '/gallery/fmac.jpg', label: 'FMAC' },
+  { src: '/gallery/medium.png', label: 'MEDIUM', fit: 'cover' },
+  { src: '/gallery/mime_blackbg.png', label: 'MIME' },
+  { src: '/gallery/manutd.jpg', label: 'MANCHESTER UNITED' },
+  { src: '/gallery/ytlogo.png', label: 'YOUTUBE' },
 ];
 
 /* ─────────────────────────────────────────────
    PORTFOLIO CARD
    ───────────────────────────────────────────── */
-function PortfolioCard({ src, label }) {
+function PortfolioCard({ src, label, fit = 'cover' }) {
   return (
     <div className="mockup-frame">
       <img
@@ -38,7 +44,8 @@ function PortfolioCard({ src, label }) {
         alt={label}
         style={{
           width: '100%',
-          height: 'auto',
+          aspectRatio: '1 / 1',
+          objectFit: fit,
           display: 'block',
           backgroundColor: '#FFFFFF',
           padding: '6px', // thin even border around the image size
@@ -185,8 +192,8 @@ export default function Hero() {
         transition={{ duration: CHROME_FADE / 1000 }}
       >
         <p className="chrome-bio">
-          DUTCH BORN, JAPANESE RAISED ART DIRECTOR BASED IN CAPE TOWN
-          FOCUSING ON BRANDING &amp; DESIGN IN EXPRESSIVE FORMS.
+          Builder. Investor. Storyteller.<br />
+          Chasing interesting ideas wherever they lead.
         </p>
       </motion.footer>
 
@@ -248,7 +255,7 @@ export default function Hero() {
                   exit={{ opacity: 0 }}
                   transition={{ duration: CROSSFADE / 1000 }}
                 >
-                  <PortfolioCard src={currentImage.src} label={currentImage.label} />
+                  <PortfolioCard src={currentImage.src} label={currentImage.label} fit={currentImage.fit} />
                 </motion.div>
               </AnimatePresence>
             </motion.div>
