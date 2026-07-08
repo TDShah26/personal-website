@@ -224,6 +224,29 @@ export default function Hero() {
   const slideAnimate = { opacity: 1 };
   const slideTransition = phase === 'split' ? { duration: 0.1 } : { duration: CROSSFADE / 1000 };
 
+  const chromeTopAnimate = isSplit
+    ? (isDesktop
+        ? { opacity: [0, 0, 1], y: [-24, -24, 0] }
+        : { opacity: 1, y: 0 })
+    : { opacity: 0, y: -24 };
+
+  const chromeBottomAnimate = isSplit
+    ? (isDesktop
+        ? { opacity: [0, 0, 1], y: [24, 24, 0] }
+        : { opacity: 1, y: 0 })
+    : { opacity: 0, y: 24 };
+
+  const chromeTransition = isDesktop
+    ? {
+        duration: SPLIT_DURATION / 1000,
+        times: [0, 0.52, 1],
+        ease: 'easeInOut',
+      }
+    : {
+        duration: SPLIT_DURATION / 1000,
+        ease: [0.76, 0, 0.24, 1],
+      };
+
   // If fonts are not fully loaded, render a black background to prevent FOUT layout shift
   if (!fontsLoaded) {
     return <div className="hero" style={{ backgroundColor: '#0A0A0A' }} />;
@@ -232,12 +255,12 @@ export default function Hero() {
   return (
     <div className="hero">
 
-      {/* ── STATIC CHROME — only appears after gallery starts ── */}
+      {/* ── STATIC CHROME — appears synced with vertical text movement ── */}
       <motion.header
         className="chrome-top"
         initial={{ opacity: 0, y: -24 }}
-        animate={{ opacity: showGallery ? 1 : 0, y: showGallery ? 0 : -24 }}
-        transition={{ duration: CHROME_FADE / 1000, ease: [0.25, 1, 0.5, 1] }}
+        animate={chromeTopAnimate}
+        transition={chromeTransition}
       >
         <span className="chrome-name">TANAY SHAH</span>
         <span className="chrome-year">®2026</span>
@@ -246,8 +269,8 @@ export default function Hero() {
       <motion.footer
         className="chrome-bottom"
         initial={{ opacity: 0, y: 24 }}
-        animate={{ opacity: showGallery ? 1 : 0, y: showGallery ? 0 : 24 }}
-        transition={{ duration: CHROME_FADE / 1000, ease: [0.25, 1, 0.5, 1] }}
+        animate={chromeBottomAnimate}
+        transition={chromeTransition}
       >
         <p className="chrome-bio">
           Builder. Investor. Storyteller.<br />
