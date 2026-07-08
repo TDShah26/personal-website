@@ -18,19 +18,20 @@ const CROSSFADE      = 250;   // image crossfade duration
    PORTFOLIO IMAGES
    ───────────────────────────────────────────── */
 const PORTFOLIO_IMAGES = [
-  { src: '/gallery/bvp_blue.png', label: 'BVP' },
-  { src: '/gallery/ey.png', label: 'EY' },
+  { src: '/gallery/bvp_blue.png', label: 'BESSEMER VENTURE PARTNERS' },
+  { src: '/gallery/bitscollege.jpg', label: 'BITS PILANI' },
+  { src: '/gallery/hptech.jpg', label: 'HP TECH VENTURES' },
   { src: '/gallery/jpmorganchase.png', label: 'J.P. MORGAN' },
+  { src: '/gallery/fmac.jpg', label: 'FMAC' },
+  { src: '/gallery/ytlogo.png', label: 'YOUTUBE' },
+  { src: '/gallery/medium.png', label: 'MEDIUM', fit: 'cover' },
   { src: '/gallery/BCG_Corporate_Logo.jpg', label: 'BCG' },
+  { src: '/gallery/mime_blackbg.png', label: 'MIME' },
+  { src: '/gallery/ey.png', label: 'EY' },
   { src: '/gallery/WorldQuant_Text_Logo_2022.jpg', label: 'WORLDQUANT' },
-  { src: '/gallery/hptech.jpg', label: 'HP TECH' },
   { src: '/gallery/pharmeasy_logo.jpg', label: 'PHARMEASY' },
   { src: '/gallery/bitsufc.jpg', label: 'BITS UFC' },
-  { src: '/gallery/fmac.jpg', label: 'FMAC' },
-  { src: '/gallery/medium.png', label: 'MEDIUM', fit: 'cover' },
-  { src: '/gallery/mime_blackbg.png', label: 'MIME' },
   { src: '/gallery/manutd.jpg', label: 'MANCHESTER UNITED' },
-  { src: '/gallery/ytlogo.png', label: 'YOUTUBE' },
 ];
 
 /* ─────────────────────────────────────────────
