@@ -41,23 +41,11 @@
 /* ── Inline Links ── */
 .bio-inline-link {
   position: relative;
-  display: inline;
+  display: inline-block;
   text-decoration: none;
   cursor: pointer;
   color: inherit;
-  /* Slightly warmer than plain text — barely perceptible distinction */
   border-bottom: none;
-}
-
-/* The ↗ arrow that fades in on hover */
-.bio-link-arrow {
-  display: inline-block;
-  font-size: 0.75em;
-  margin-left: 2px;
-  vertical-align: super;
-  line-height: 0;
-  color: rgba(245, 245, 245, 0.7);
-  pointer-events: none;
 }
 
 /* ═══════════════════════════════════════════════

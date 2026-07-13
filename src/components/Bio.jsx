@@ -19,18 +19,18 @@ const SCRIBBLE_PATHS = [
    LINK METADATA — preview cards, scribble color
    ───────────────────────────────────────────── */
 export const LINK_META = {
-  bessemer:      { color: '#C9A84C', scribbleIndex: 0, preview: { title: 'Bessemer Venture Partners', desc: 'One of the oldest venture firms in the world.', img: null } },
-  jpmc:          { color: '#7EB8D4', scribbleIndex: 1, preview: null },
-  bcg:           { color: '#6EC6A0', scribbleIndex: 2, preview: null },
-  medium:        { color: '#A8D8A8', scribbleIndex: 3, preview: { title: 'Medium', desc: 'Essays on markets, tech, and things I can\'t stop thinking about.', img: null } },
-  'film-acted':  { color: '#E8A598', scribbleIndex: 4, preview: { title: 'Two Short Films', desc: 'Student films I acted in.', img: null } },
-  'film-directed': { color: '#E8C07A', scribbleIndex: 0, preview: { title: 'Short Film', desc: 'A student short film I directed.', img: null } },
-  mime:          { color: '#C9A0DC', scribbleIndex: 1, preview: { title: 'Mime on Stage', desc: 'Stage performances including a UV+LED piece.', img: null } },
-  comic:         { color: '#E8A5B8', scribbleIndex: 2, preview: { title: 'Incidental Findings', desc: 'A comic book of dry humor.', img: null } },
-  loremaxxing:   { color: '#7EC8E3', scribbleIndex: 3, preview: { title: 'Lore Maxxing', desc: "An app for people who\u2019d rather live an interesting life than scroll through one.", img: null } },
-  frisbee:       { color: '#7EC8A0', scribbleIndex: 4, preview: { title: 'Ultimate Frisbee', desc: 'Represented my college team.', img: null } },
-  keys:          { color: '#E8D4A0', scribbleIndex: 0, preview: null },
-  fa:            { color: '#8AA8D4', scribbleIndex: 1, preview: { title: 'English FA Badge', desc: 'Working towards a formal coaching certification.', img: null } },
+  bessemer:      { color: '#C9A84C', scribbleIndex: 0, font: "'Playfair Display', serif", weight: 700, preview: { title: 'Bessemer Venture Partners', desc: 'One of the oldest venture firms in the world.', img: null } },
+  jpmc:          { color: '#7EB8D4', scribbleIndex: 1, font: "'Inter', sans-serif", weight: 700, preview: null },
+  bcg:           { color: '#6EC6A0', scribbleIndex: 2, font: "'Inter', sans-serif", weight: 700, preview: null },
+  medium:        { color: '#A8D8A8', scribbleIndex: 3, font: "'Merriweather', serif", weight: 700, preview: { title: 'Medium', desc: 'Essays on markets, tech, and things I can\'t stop thinking about.', img: null } },
+  'film-acted':  { color: '#E8A598', scribbleIndex: 4, font: "'Bebas Neue', sans-serif", weight: 400, preview: { title: 'Two Short Films', desc: 'Student films I acted in.', img: null } },
+  'film-directed': { color: '#E8C07A', scribbleIndex: 0, font: "'Bebas Neue', sans-serif", weight: 400, preview: { title: 'Short Film', desc: 'A student short film I directed.', img: null } },
+  mime:          { color: '#C9A0DC', scribbleIndex: 1, font: "'Space Mono', monospace", weight: 400, preview: { title: 'Mime on Stage', desc: 'Stage performances including a UV+LED piece.', img: null } },
+  comic:         { color: '#E8A5B8', scribbleIndex: 2, font: "'Comic Neue', cursive", weight: 700, preview: { title: 'Incidental Findings', desc: 'A comic book of dry humor.', img: null } },
+  loremaxxing:   { color: '#7EC8E3', scribbleIndex: 3, font: "'Outfit', sans-serif", weight: 500, preview: { title: 'Lore Maxxing', desc: "An app for people who\u2019d rather live an interesting life than scroll through one.", img: null } },
+  frisbee:       { color: '#7EC8A0', scribbleIndex: 4, font: "'Bebas Neue', sans-serif", weight: 400, preview: { title: 'Ultimate Frisbee', desc: 'Represented my college team.', img: null } },
+  keys:          { color: '#E8D4A0', scribbleIndex: 0, font: "'Libre Baskerville', serif", weight: 400, preview: null },
+  fa:            { color: '#8AA8D4', scribbleIndex: 1, font: "'Playfair Display', serif", weight: 700, preview: { title: 'English FA Badge', desc: 'Working towards a formal coaching certification.', img: null } },
 };
 
 /* ─────────────────────────────────────────────
@@ -38,7 +38,7 @@ export const LINK_META = {
    SVG that animates its stroke-dashoffset
    from full (hidden) to 0 (drawn).
    ───────────────────────────────────────────── */
-function ScribbleUnderline({ color, pathIndex = 0, visible }) {
+function ScribbleUnderline({ color, pathIndex = 0, visible, opacity = 1 }) {
   const pathData = SCRIBBLE_PATHS[pathIndex % SCRIBBLE_PATHS.length];
   const TOTAL_LENGTH = 165;
 
@@ -53,6 +53,8 @@ function ScribbleUnderline({ color, pathIndex = 0, visible }) {
         height: '12px',
         overflow: 'visible',
         pointerEvents: 'none',
+        opacity: opacity,
+        transition: 'opacity 0.3s ease',
       }}
       viewBox={`0 0 160 10`}
       preserveAspectRatio="none"
@@ -184,30 +186,23 @@ function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
       onClick={handleClick}
       style={{
         color: isOtherHovered ? 'rgba(245,245,245,0.3)' : 'var(--color-fg)',
-        transition: 'color 0.3s ease',
+        fontFamily: isActive && meta?.font ? meta.font : "'Playfair Display', serif",
+        fontStyle: isActive && meta?.font ? 'normal' : 'italic',
+        fontWeight: isActive && meta?.weight ? meta.weight : 400,
+        transition: 'color 0.3s ease, font-weight 0.2s ease',
         position: 'relative',
-        display: 'inline',
+        display: 'inline-block',
         textDecoration: 'none',
         whiteSpace: 'nowrap',
       }}
     >
-      <span style={{ position: 'relative', display: 'inline-block' }}>
-        {label}
-        <ScribbleUnderline
-          color={meta?.color ?? '#F5F5F5'}
-          pathIndex={meta?.scribbleIndex ?? 0}
-          visible={isActive}
-        />
-      </span>
-      <motion.span
-        className="bio-link-arrow"
-        initial={{ opacity: 0, x: -3 }}
-        animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -3 }}
-        transition={{ duration: 0.15, ease: 'easeOut' }}
-        aria-hidden="true"
-      >
-        ↗
-      </motion.span>
+      {label}
+      <ScribbleUnderline
+        color={meta?.color ?? '#F5F5F5'}
+        pathIndex={meta?.scribbleIndex ?? 0}
+        visible={isActive || isTouch}
+        opacity={isTouch && !isActive ? 0.4 : 1}
+      />
     </a>
   );
 }
