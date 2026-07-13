@@ -18,19 +18,19 @@ const SCRIBBLE_PATHS = [
    ───────────────────────────────────────────── */
 export const LINK_META = {
   bessemer:        { color: '#C9A84C', scribbleIndex: 0 },
-  jpmc:            { color: '#7EB8D4', scribbleIndex: 1 },
-  bcg:             { color: '#6EC6A0', scribbleIndex: 2 },
-  bitspilani:      { color: '#E8A598', scribbleIndex: 3 },
-  medium:          { color: '#A8D8A8', scribbleIndex: 4 },
-  'films-acted':   { color: '#E8C07A', scribbleIndex: 0 },
-  'film-directed': { color: '#E8C07A', scribbleIndex: 1 },
-  'mime-acted':    { color: '#C9A0DC', scribbleIndex: 2 },
-  'mimes-directed':{ color: '#BF5FFF', scribbleIndex: 3 },
-  comic:           { color: '#E8A5B8', scribbleIndex: 4 },
-  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 0 },
-  frisbee:         { color: '#7EC8A0', scribbleIndex: 1 },
-  keys:            { color: '#E8D4A0', scribbleIndex: 2 },
-  fa:              { color: '#8AA8D4', scribbleIndex: 3 },
+  jpmc:            { color: '#C9A84C', scribbleIndex: 1 },
+  bcg:             { color: '#C9A84C', scribbleIndex: 2 },
+  bitspilani:      { color: '#C9A84C', scribbleIndex: 3 },
+  medium:          { color: '#C9A84C', scribbleIndex: 4 },
+  'films-acted':   { color: '#C9A84C', scribbleIndex: 0 },
+  'film-directed': { color: '#C9A84C', scribbleIndex: 1 },
+  'mime-acted':    { color: '#C9A84C', scribbleIndex: 2 },
+  'mimes-directed':{ color: '#C9A84C', scribbleIndex: 3 },
+  comic:           { color: '#C9A84C', scribbleIndex: 4 },
+  loremaxxing:     { color: '#C9A84C', scribbleIndex: 0 },
+  frisbee:         { color: '#C9A84C', scribbleIndex: 1 },
+  keys:            { color: '#C9A84C', scribbleIndex: 2 },
+  fa:              { color: '#C9A84C', scribbleIndex: 3 },
 };
 
 /* ─────────────────────────────────────────────
@@ -262,59 +262,30 @@ export default function Bio() {
     <section className="bio-section" ref={sectionRef}>
       <div className="bio-inner">
         <p className="bio-para">
-
           <Sentence delay={BASE + GAP * 0} isInView={isInView}>
-            I invest in frontier companies at {L('bessemer', 'Bessemer Venture Partners')}.{' '}
+            I studied Computer Science and Economics at {L('bitspilani', 'BITS Pilani')}, interned at {L('jpmc', 'J.P. Morgan')} and {L('bcg', 'BCG')}, and now invest in frontier companies at {L('bessemer', 'Bessemer Venture Partners')}.
           </Sentence>
+        </p>
+
+        <p className="bio-para">
           <Sentence delay={BASE + GAP * 1} isInView={isInView}>
-            Before that, I spent time at {L('jpmc', 'J.P. Morgan')} and {L('bcg', 'BCG')}.{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 2} isInView={isInView}>
-            I studied Computer Science and Economics at {L('bitspilani', 'BITS Pilani')}.{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 3} isInView={isInView}>
-            The rest of my time is spent collecting side quests.{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 4} isInView={isInView}>
-            That has somehow led me to write on {L('medium', 'Medium')},{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 5} isInView={isInView}>
-            act in{' '}
+            The rest of my time is spent collecting side quests. I've written on {L('medium', 'Medium')}, acted in{' '}
             {EL('two', 'films-acted', [
               { id: 'film-a', label: 'Short Film I', href: '#' },
               { id: 'film-b', label: 'Short Film II', href: '#' },
             ])}{' '}
-            student short films,{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 6} isInView={isInView}>
-            direct {L('film-directed', 'one')},{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 7} isInView={isInView}>
-            perform {L('mime-acted', 'mime on stage')},{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 8} isInView={isInView}>
-            direct{' '}
-            {EL('two mime productions', 'mimes-directed', [
+            student short films, directed {L('film-directed', 'another')}, somehow ended up performing {L('mime-acted', 'mime on stage')}, and even directed{' '}
+            {EL('two UV performances', 'mimes-directed', [
               { id: 'mime-a', label: 'UV + LED', href: '#' },
               { id: 'mime-b', label: 'Blackout Show', href: '#' },
-            ])},{' '}
+            ])}.
           </Sentence>
-          <Sentence delay={BASE + GAP * 9} isInView={isInView}>
-            make a comic book called {L('comic', 'Incidental Findings')},{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 10} isInView={isInView}>
-            build {L('loremaxxing', 'Lore Maxxing')},{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 11} isInView={isInView}>
-            represent my college in {L('frisbee', 'ultimate frisbee')},{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 12} isInView={isInView}>
-            play the {L('keys', 'keys')}, obsess over Manchester United, and work towards an{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 13} isInView={isInView}>
-            {L('fa', 'English FA coaching badge')}.
-          </Sentence>
+        </p>
 
+        <p className="bio-para">
+          <Sentence delay={BASE + GAP * 2} isInView={isInView}>
+            That curiosity also led me to build {L('loremaxxing', 'Lore Maxxing')}, make a comic book called {L('comic', 'Incidental Findings')}, represent my college in {L('frisbee', 'ultimate frisbee')}, learn the {L('keys', 'keys')}, suffer through Manchester United seasons, and start working towards an {L('fa', 'English FA coaching badge')}.
+          </Sentence>
         </p>
 
         {/* Mobile hint — shown only on touch screens via CSS */}
