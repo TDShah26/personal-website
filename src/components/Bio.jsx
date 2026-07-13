@@ -249,34 +249,42 @@ export default function Bio() {
       <div className="bio-inner">
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 0} isInView={isInView}>
-            I studied Computer Science and Economics at {L('bitspilani', 'BITS Pilani')}, interned at {L('jpmc', 'J.P. Morgan')} and {L('bcg', 'BCG')}, and now invest in frontier companies at {L('bessemer', 'Bessemer Venture Partners')}.
+            I'm an investor at {L('bessemer', 'Bessemer Venture Partners')}.{' '}
           </Sentence>
-        </p>
-
-        <p className="bio-para">
           <Sentence delay={BASE + GAP * 1} isInView={isInView}>
-            The rest of my time is spent collecting side quests. I've written on {L('medium', 'Medium')}.
-          </Sentence>
-        </p>
-
-        <p className="bio-para">
-          <Sentence delay={BASE + GAP * 1.5} isInView={isInView}>
-            I've acted in{' '}
-            {EL('two', 'films-acted', [
-              { id: 'film-a', label: 'Short Film I', href: '#' },
-              { id: 'film-b', label: 'Short Film II', href: '#' },
-            ])}{' '}
-            student short films, directed {L('film-directed', 'another')}, somehow ended up performing {L('mime-acted', 'mime on stage')}, and even directed{' '}
-            {EL('two UV performances', 'mimes-directed', [
-              { id: 'mime-a', label: 'UV + LED', href: '#' },
-              { id: 'mime-b', label: 'Blackout Show', href: '#' },
-            ])}.
+            Before that, I studied Computer Science and Economics at {L('bitspilani', 'BITS Pilani')},{' '}
+            and worked at {L('jpmc', 'J.P. Morgan')} and {L('bcg', 'BCG')}.
           </Sentence>
         </p>
 
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 2} isInView={isInView}>
-            That curiosity also led me to build {L('loremaxxing', 'Lore Maxxing')}, make a comic book called {L('comic', 'Incidental Findings')}, represent my college in {L('frisbee', 'ultimate frisbee')}, learn the {L('keys', 'keys')}, suffer through Manchester United seasons, and start working towards an {L('fa', 'English FA coaching badge')}.
+            The rest has been a series of happy detours — acting in{' '}
+            {EL('two', 'films-acted', [
+              { id: 'film-a', label: 'Short Film I', href: '#' },
+              { id: 'film-b', label: 'Short Film II', href: '#' },
+            ])}{' '}
+            student short films, then directing {L('film-directed', 'one')};{' '}
+            performing {L('mime-acted', 'mime on stage')}, then directing{' '}
+            {EL('two', 'mimes-directed', [
+              { id: 'mime-a', label: 'UV + LED', href: '#' },
+              { id: 'mime-b', label: 'Blackout Show', href: '#' },
+            ])};{' '}
+            representing my college in {L('frisbee', 'ultimate frisbee')};{' '}
+            and drawing a comic book called {L('comic', 'Incidental Findings')}.
+          </Sentence>
+        </p>
+
+        <p className="bio-para">
+          <Sentence delay={BASE + GAP * 3} isInView={isInView}>
+            Right now I'm building {L('loremaxxing', 'Lore Maxxing')}, practicing the {L('keys', 'keys')},{' '}
+            and working toward an {L('fa', 'English FA coaching badge')}.{' '}
+          </Sentence>
+          <Sentence delay={BASE + GAP * 4} isInView={isInView}>
+            Manchester United could probably use the help.{' '}
+          </Sentence>
+          <Sentence delay={BASE + GAP * 5} isInView={isInView}>
+            I'm always looking for the next interesting thing to say yes to.
           </Sentence>
         </p>
 
