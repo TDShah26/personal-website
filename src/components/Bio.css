@@ -120,13 +120,12 @@
 
 /* The revealed group of sub-links */
 .expanding-links-group {
-  display: inline-flex;
-  align-items: baseline;
+  display: inline;
 }
 
 /* Individual sub-links inside the expanded state */
 .expanding-sub-link {
-  display: inline-block;
+  display: inline;
   position: relative;
   font-family: 'Playfair Display', Georgia, serif;
   font-style: italic;

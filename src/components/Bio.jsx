@@ -255,7 +255,13 @@ export default function Bio() {
 
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 1} isInView={isInView}>
-            The rest of my time is spent collecting side quests. I've written on {L('medium', 'Medium')}, acted in{' '}
+            The rest of my time is spent collecting side quests. I've written on {L('medium', 'Medium')}.
+          </Sentence>
+        </p>
+
+        <p className="bio-para">
+          <Sentence delay={BASE + GAP * 1.5} isInView={isInView}>
+            I've acted in{' '}
             {EL('two', 'films-acted', [
               { id: 'film-a', label: 'Short Film I', href: '#' },
               { id: 'film-b', label: 'Short Film II', href: '#' },
