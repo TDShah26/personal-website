@@ -283,6 +283,9 @@ export default function Bio() {
           <Sentence delay={BASE + GAP * 4} isInView={isInView}>
             Manchester United could probably use the help.{' '}
           </Sentence>
+        </p>
+
+        <p className="bio-para">
           <Sentence delay={BASE + GAP * 5} isInView={isInView}>
             I'm always looking for the next interesting thing to say yes to.
           </Sentence>
