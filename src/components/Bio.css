@@ -43,18 +43,16 @@
   text-decoration: none;
   cursor: pointer;
   white-space: nowrap;
-
-  /* Muted accent color at rest — the CSS var is injected via React */
+  /* Editorial italic serif at rest — gives the paragraph texture */
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
   color: color-mix(in srgb, var(--link-color) 70%, #888);
-
-  /* Font and color transitions */
-  transition:
-    color 0.28s ease,
-    font-family 0.2s ease,
-    font-weight 0.2s ease;
+  /* Only color transitions — no size/font transitions that shift layout */
+  transition: color 0.28s ease;
 }
 
-/* Active / hover state — bright white, spotlight on this link */
+/* Active / hover state — bright white */
 .bio-inline-link.is-active {
   color: #FFFFFF;
 }
@@ -64,34 +62,31 @@
   color: rgba(245, 245, 245, 0.18) !important;
 }
 
-/* Arrow via CSS ::after — zero space at rest, slides in on hover/active */
+/*
+  Arrow absolutely positioned — floats to the right of the word
+  without being part of the element layout box.
+  This prevents width expansion from triggering mouseleave -> flicker loop.
+*/
 .bio-inline-link::after {
-  content: '↗';
-  display: inline-block;
+  content: '\2197';
+  position: absolute;
+  left: calc(100% + 2px);
+  top: 0;
   font-style: normal;
   font-family: 'Inter', sans-serif;
   font-weight: 400;
   font-size: 0.7em;
-  vertical-align: super;
-  line-height: 1;
-  margin-left: 0;
-  width: 0;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateX(-4px);
-  transition:
-    opacity 0.2s ease,
-    transform 0.2s ease,
-    width 0.2s ease,
-    margin-left 0.2s ease;
+  line-height: inherit;
   color: var(--link-color);
+  opacity: 0;
+  transform: translate(-4px, -2px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: none;
 }
 
 .bio-inline-link.is-active::after {
   opacity: 1;
-  width: 0.85em;
-  margin-left: 3px;
-  transform: translateX(0);
+  transform: translate(0, -2px);
 }
 
 /* Mobile hint — subtle, fades in only on touch screens */

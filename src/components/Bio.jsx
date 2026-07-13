@@ -124,9 +124,6 @@ function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
       onClick={handleClick}
       style={{
         '--link-color': meta?.color ?? '#F5F5F5',
-        fontFamily: isActive && meta?.font ? meta.font : "'Playfair Display', serif",
-        fontStyle: isActive && meta?.font ? 'normal' : 'italic',
-        fontWeight: isActive && meta?.weight ? meta.weight : 400,
       }}
     >
       {label}
