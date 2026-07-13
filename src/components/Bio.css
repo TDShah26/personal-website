@@ -261,3 +261,15 @@
     display: none;
   }
 }
+
+@media (hover: none) {
+  .bio-inline-link,
+  .expanding-trigger {
+    border-bottom: 1px dotted rgba(245, 245, 245, 0.35);
+    padding-bottom: 1px;
+  }
+
+  .bio-inline-link.is-active {
+    border-bottom-color: transparent !important;
+  }
+}

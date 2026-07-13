@@ -108,8 +108,7 @@ function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
       <ScribbleUnderline
         color={meta?.color ?? '#F5F5F5'}
         pathIndex={meta?.scribbleIndex ?? 0}
-        visible={isActive || isTouch}
-        opacity={isTouch && !isActive ? 0.35 : 1}
+        visible={isActive}
       />
     </a>
   );
@@ -146,13 +145,6 @@ function ExpandingLink({ trigger, links, themeId }) {
         /* ── Collapsed trigger ── */
         <span className="expanding-trigger">
           {trigger}
-          {/* On mobile, show a faint permanent scribble to hint it's interactive */}
-          <ScribbleUnderline
-            color={color}
-            pathIndex={meta?.scribbleIndex ?? 0}
-            visible={isTouch}
-            opacity={0.35}
-          />
         </span>
       ) : (
         /* ── Expanded sub-links ── */
