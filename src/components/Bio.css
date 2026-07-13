@@ -1,0 +1,159 @@
+/* ═══════════════════════════════════════════════
+   Bio.css — Editorial Bio Section
+   Philosophy: beautifully typeset text by default.
+   Interactivity reveals itself through exploration.
+   ═══════════════════════════════════════════════ */
+
+/* ── Section Layout ── */
+.bio-section {
+  position: relative;
+  z-index: 10;
+  margin-top: 100vh;          /* slides up over the fixed hero */
+  background-color: var(--color-bg);
+  min-height: 100vh;
+  padding: 160px 24px 160px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.bio-inner {
+  max-width: 780px;
+  width: 100%;
+}
+
+/* ── Paragraph ── */
+.bio-para {
+  font-family: var(--font-body);
+  font-size: clamp(1.25rem, 2.2vw, 1.7rem);
+  font-weight: 400;
+  line-height: 1.8;
+  color: var(--color-fg);
+  letter-spacing: -0.01em;
+  /* No margin-bottom — whitespace comes from padding on section */
+}
+
+/* Sentence wrapper — display:inline so text flows naturally */
+.bio-sentence {
+  display: inline;
+}
+
+/* ── Inline Links ── */
+.bio-inline-link {
+  position: relative;
+  display: inline;
+  text-decoration: none;
+  cursor: pointer;
+  color: inherit;
+  /* Slightly warmer than plain text — barely perceptible distinction */
+  border-bottom: none;
+}
+
+/* The ↗ arrow that fades in on hover */
+.bio-link-arrow {
+  display: inline-block;
+  font-size: 0.75em;
+  margin-left: 2px;
+  vertical-align: super;
+  line-height: 0;
+  color: rgba(245, 245, 245, 0.7);
+  pointer-events: none;
+}
+
+/* ═══════════════════════════════════════════════
+   FLOATING PREVIEW CARD
+   Linear/Vercel quality — dark, minimal, sharp.
+   ═══════════════════════════════════════════════ */
+
+.bio-preview-card {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  pointer-events: none;       /* never blocks mouse events */
+  width: 260px;
+  border-radius: 12px;
+  background: #111111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 0 0 0.5px rgba(0, 0, 0, 0.5),
+    0 8px 32px rgba(0, 0, 0, 0.6),
+    0 2px 8px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+/* Thumbnail strip */
+.bio-preview-thumb {
+  width: 100%;
+  height: 130px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.bio-preview-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.bio-preview-thumb-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  opacity: 0.6;
+}
+
+/* Text content */
+.bio-preview-content {
+  padding: 14px 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.bio-preview-title {
+  font-family: var(--font-body);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: rgba(245, 245, 245, 0.95);
+  margin: 0;
+  line-height: 1.3;
+}
+
+.bio-preview-desc {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: rgba(245, 245, 245, 0.4);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.bio-preview-open {
+  display: inline-block;
+  margin-top: 8px;
+  font-family: var(--font-body);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .bio-section {
+    padding: 100px 28px 120px;
+  }
+
+  /* No floating cards on mobile — touch UX is different */
+  .bio-preview-card {
+    display: none;
+  }
+}
