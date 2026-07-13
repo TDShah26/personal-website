@@ -18,19 +18,14 @@ const SCRIBBLE_PATHS = [
    ───────────────────────────────────────────── */
 export const LINK_META = {
   bessemer:        { color: '#C9A84C', scribbleIndex: 0 },
-  jpmc:            { color: '#7EB8D4', scribbleIndex: 1 },
-  bcg:             { color: '#6EC6A0', scribbleIndex: 2 },
-  bitspilani:      { color: '#E8A598', scribbleIndex: 3 },
-  medium:          { color: '#A8D8A8', scribbleIndex: 4 },
-  'films-acted':   { color: '#E8C07A', scribbleIndex: 0 },
-  'film-directed': { color: '#E8C07A', scribbleIndex: 1 },
-  'mime-acted':    { color: '#C9A0DC', scribbleIndex: 2 },
-  'mimes-directed':{ color: '#BF5FFF', scribbleIndex: 3 },
-  comic:           { color: '#E8A5B8', scribbleIndex: 4 },
-  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 0 },
+  bitspilani:      { color: '#E8A598', scribbleIndex: 1 },
+  'films-acted':   { color: '#E8C07A', scribbleIndex: 2 },
+  'film-directed': { color: '#E8C07A', scribbleIndex: 3 },
+  'mime-acted':    { color: '#C9A0DC', scribbleIndex: 4 },
+  'mime-directed': { color: '#BF5FFF', scribbleIndex: 0 },
   frisbee:         { color: '#7EC8A0', scribbleIndex: 1 },
-  keys:            { color: '#E8D4A0', scribbleIndex: 2 },
-  fa:              { color: '#8AA8D4', scribbleIndex: 3 },
+  comic:           { color: '#E8A5B8', scribbleIndex: 2 },
+  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 3 },
 };
 
 /* ─────────────────────────────────────────────
@@ -241,11 +236,11 @@ export default function Bio() {
       <div className="bio-inner">
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 0} isInView={isInView}>
-            I'm an investor at {L('bessemer', 'Bessemer Venture Partners')}.{' '}
+            I'm an investor at {L('bessemer', 'Bessemer Venture Partners', 'https://www.bvp.com/team')}.{' '}
           </Sentence>
           <Sentence delay={BASE + GAP * 1} isInView={isInView}>
-            Before that, I studied Computer Science and Economics at {L('bitspilani', 'BITS Pilani')},{' '}
-            and worked at {L('jpmc', 'J.P. Morgan')} and {L('bcg', 'BCG')}.
+            Before that, I studied Computer Science and Economics at {L('bitspilani', 'BITS Pilani', 'https://www.bits-pilani.ac.in/')},{' '}
+            and worked at J.P. Morgan and BCG.
           </Sentence>
         </p>
 
@@ -253,24 +248,20 @@ export default function Bio() {
           <Sentence delay={BASE + GAP * 2} isInView={isInView}>
             The rest has been a series of happy detours — acting in{' '}
             {EL('two', 'films-acted', [
-              { id: 'film-a', label: 'Short Film I', href: '#' },
-              { id: 'film-b', label: 'Short Film II', href: '#' },
+              { id: 'film-a', label: 'Becharii', href: 'https://youtu.be/xwdVjkv4Nz4?si=kYFiQyMqCaSAYvuV' },
+              { id: 'film-b', label: 'Aaja 2022', href: 'https://youtu.be/vyYQDhoxLVI?si=m8Fw-lz56BtCWbwm' },
             ])}{' '}
-            student short films, then directing {L('film-directed', 'one')};{' '}
-            performing {L('mime-acted', 'mime on stage')}, then directing{' '}
-            {EL('two', 'mimes-directed', [
-              { id: 'mime-a', label: 'UV + LED', href: '#' },
-              { id: 'mime-b', label: 'Blackout Show', href: '#' },
-            ])};{' '}
-            representing my college in {L('frisbee', 'ultimate frisbee')};{' '}
-            and drawing a comic book called {L('comic', 'Incidental Findings')}.
+            student short films, then directing {L('film-directed', 'one', 'https://youtu.be/pUg-crdxGhA?si=OCSkfPGz-CzBLa6O')};{' '}
+            performing {L('mime-acted', 'mime', 'https://youtu.be/QLn-6B9fjyE?si=kA9itEFPDA1h0PWM')}, then directing {L('mime-directed', 'one', 'https://youtu.be/VPHHxnDNuAk?si=zbCINqP0Xy6KVxTb')};{' '}
+            representing my college in {L('frisbee', 'ultimate frisbee', 'https://bitsufc.netlify.app/')};{' '}
+            and making a comic book called {L('comic', 'Incidental Findings', 'https://getvik.com/store/tanay-shah/product/incidental-findings')}.
           </Sentence>
         </p>
 
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 3} isInView={isInView}>
-            Right now I'm building {L('loremaxxing', 'Lore Maxxing')}, practicing the {L('keys', 'keys')},{' '}
-            and working toward an {L('fa', 'English FA coaching badge')}.{' '}
+            Right now I'm building {L('loremaxxing', 'Lore Maxxing', 'https://loremaxxing.base44.app/')}, practicing the piano,{' '}
+            and working toward an English FA coaching badge.{' '}
           </Sentence>
           <Sentence delay={BASE + GAP * 4} isInView={isInView}>
             Manchester United could probably use the help.{' '}
