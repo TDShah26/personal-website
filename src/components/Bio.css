@@ -89,6 +89,58 @@
   transform: translate(0, -2px);
 }
 
+/* ═══════════════════════════════════════════════
+   EXPANDING LINK
+   One trigger word that morphs into multiple
+   sub-links on hover, with smooth layout animation.
+   ═══════════════════════════════════════════════ */
+
+.expanding-link-container {
+  display: inline-block;
+  position: relative;
+  vertical-align: baseline;
+  cursor: pointer;
+}
+
+/* The resting trigger word — same editorial italic serif as regular links */
+.expanding-trigger {
+  display: inline-block;
+  position: relative;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: color-mix(in srgb, var(--link-color) 70%, #888);
+  transition: color 0.2s ease;
+}
+
+/* The revealed group of sub-links */
+.expanding-links-group {
+  display: inline-flex;
+  align-items: baseline;
+}
+
+/* Individual sub-links inside the expanded state */
+.expanding-sub-link {
+  display: inline-block;
+  position: relative;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+/* The separator slash between sub-links */
+.expanding-sep {
+  display: inline;
+  color: rgba(245, 245, 245, 0.25);
+  font-style: normal;
+  font-family: var(--font-body);
+  font-size: 0.8em;
+  padding: 0 5px;
+}
+
 /* Mobile hint — subtle, fades in only on touch screens */
 .bio-mobile-hint {
   display: none;
