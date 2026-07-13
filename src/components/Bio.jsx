@@ -1,5 +1,5 @@
-import { useRef, useState, useEffect, useId } from 'react';
-import { motion, AnimatePresence, useSpring, useMotionValue } from 'framer-motion';
+import { useRef, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import './Bio.css';
 
 /* ─────────────────────────────────────────────
@@ -16,21 +16,22 @@ const SCRIBBLE_PATHS = [
 ];
 
 /* ─────────────────────────────────────────────
-   LINK METADATA — preview cards, scribble color
+   LINK METADATA — scribble color, fonts
    ───────────────────────────────────────────── */
 export const LINK_META = {
-  bessemer:      { color: '#C9A84C', scribbleIndex: 0, font: "'Playfair Display', serif", weight: 700, preview: { title: 'Bessemer Venture Partners', desc: 'One of the oldest venture firms in the world.', img: null } },
-  jpmc:          { color: '#7EB8D4', scribbleIndex: 1, font: "'Inter', sans-serif", weight: 700, preview: null },
-  bcg:           { color: '#6EC6A0', scribbleIndex: 2, font: "'Inter', sans-serif", weight: 700, preview: null },
-  medium:        { color: '#A8D8A8', scribbleIndex: 3, font: "'Merriweather', serif", weight: 700, preview: { title: 'Medium', desc: 'Essays on markets, tech, and things I can\'t stop thinking about.', img: null } },
-  'film-acted':  { color: '#E8A598', scribbleIndex: 4, font: "'Bebas Neue', sans-serif", weight: 400, preview: { title: 'Two Short Films', desc: 'Student films I acted in.', img: null } },
-  'film-directed': { color: '#E8C07A', scribbleIndex: 0, font: "'Bebas Neue', sans-serif", weight: 400, preview: { title: 'Short Film', desc: 'A student short film I directed.', img: null } },
-  mime:          { color: '#C9A0DC', scribbleIndex: 1, font: "'Space Mono', monospace", weight: 400, preview: { title: 'Mime on Stage', desc: 'Stage performances including a UV+LED piece.', img: null } },
-  comic:         { color: '#E8A5B8', scribbleIndex: 2, font: "'Comic Neue', cursive", weight: 700, preview: { title: 'Incidental Findings', desc: 'A comic book of dry humor.', img: null } },
-  loremaxxing:   { color: '#7EC8E3', scribbleIndex: 3, font: "'Outfit', sans-serif", weight: 500, preview: { title: 'Lore Maxxing', desc: "An app for people who\u2019d rather live an interesting life than scroll through one.", img: null } },
-  frisbee:       { color: '#7EC8A0', scribbleIndex: 4, font: "'Bebas Neue', sans-serif", weight: 400, preview: { title: 'Ultimate Frisbee', desc: 'Represented my college team.', img: null } },
-  keys:          { color: '#E8D4A0', scribbleIndex: 0, font: "'Libre Baskerville', serif", weight: 400, preview: null },
-  fa:            { color: '#8AA8D4', scribbleIndex: 1, font: "'Playfair Display', serif", weight: 700, preview: { title: 'English FA Badge', desc: 'Working towards a formal coaching certification.', img: null } },
+  bessemer:      { color: '#C9A84C', scribbleIndex: 0, font: "'Playfair Display', serif", weight: 700 },
+  jpmc:          { color: '#7EB8D4', scribbleIndex: 1, font: "'Inter', sans-serif", weight: 700 },
+  bcg:           { color: '#6EC6A0', scribbleIndex: 2, font: "'Inter', sans-serif", weight: 700 },
+  medium:        { color: '#A8D8A8', scribbleIndex: 3, font: "'Merriweather', serif", weight: 700 },
+  'film-acted':  { color: '#E8A598', scribbleIndex: 4, font: "'Bebas Neue', sans-serif", weight: 400 },
+  'film-directed': { color: '#E8C07A', scribbleIndex: 0, font: "'Bebas Neue', sans-serif", weight: 400 },
+  'mime-acted':  { color: '#C9A0DC', scribbleIndex: 1, font: "'Space Mono', monospace", weight: 400 },
+  'mime-directed': { color: '#BF5FFF', scribbleIndex: 2, font: "'Space Mono', monospace", weight: 400 },
+  comic:         { color: '#E8A5B8', scribbleIndex: 3, font: "'Comic Neue', cursive", weight: 700 },
+  loremaxxing:   { color: '#7EC8E3', scribbleIndex: 4, font: "'Outfit', sans-serif", weight: 500 },
+  frisbee:       { color: '#7EC8A0', scribbleIndex: 0, font: "'Bebas Neue', sans-serif", weight: 400 },
+  keys:          { color: '#E8D4A0', scribbleIndex: 1, font: "'Libre Baskerville', serif", weight: 400 },
+  fa:            { color: '#8AA8D4', scribbleIndex: 2, font: "'Playfair Display', serif", weight: 700 },
 };
 
 /* ─────────────────────────────────────────────
@@ -80,77 +81,14 @@ function ScribbleUnderline({ color, pathIndex = 0, visible, opacity = 1 }) {
 }
 
 /* ─────────────────────────────────────────────
-   FLOATING PREVIEW CARD
-   Fixed position, tracks mouse with spring physics
-   ───────────────────────────────────────────── */
-function FloatingPreviewCard({ preview, color, visible }) {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const springConfig = { stiffness: 200, damping: 28, mass: 0.6 };
-  const x = useSpring(mouseX, springConfig);
-  const y = useSpring(mouseY, springConfig);
-
-  useEffect(() => {
-    const move = (e) => {
-      // Offset card to the right and slightly up from cursor
-      mouseX.set(e.clientX + 20);
-      mouseY.set(e.clientY - 60);
-    };
-    window.addEventListener('mousemove', move);
-    return () => window.removeEventListener('mousemove', move);
-  }, [mouseX, mouseY]);
-
-  return (
-    <AnimatePresence>
-      {visible && preview && (
-        <motion.div
-          className="bio-preview-card"
-          style={{ x, y }}
-          initial={{ opacity: 0, scale: 0.94, filter: 'blur(4px)' }}
-          animate={{ opacity: 1, scale: 1, filter: 'blur(0px)' }}
-          exit={{ opacity: 0, scale: 0.96, filter: 'blur(4px)' }}
-          transition={{ duration: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        >
-          {/* Thumbnail area */}
-          <div className="bio-preview-thumb" style={{ background: `${color}18` }}>
-            {preview.img ? (
-              <img src={preview.img} alt={preview.title} />
-            ) : (
-              <div className="bio-preview-thumb-placeholder" style={{ color }}>
-                <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-                  <rect x="2" y="2" width="16" height="16" rx="3" stroke="currentColor" strokeWidth="1.2"/>
-                  <circle cx="7" cy="7.5" r="1.5" fill="currentColor" opacity="0.5"/>
-                  <path d="M2 13 L6 9 L9 12 L13 8 L18 13" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" opacity="0.7"/>
-                </svg>
-              </div>
-            )}
-          </div>
-
-          {/* Card content */}
-          <div className="bio-preview-content">
-            <p className="bio-preview-title">{preview.title}</p>
-            <p className="bio-preview-desc">{preview.desc}</p>
-            <span className="bio-preview-open" style={{ color }}>
-              Open ↗
-            </span>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-}
-
-/* ─────────────────────────────────────────────
    INLINE LINK
    At rest: muted accent color, italic serif.
-   On hover: full white, personality font, scribble draws in, ↗ fades in.
+   On hover: full white, personality font, scribble draws in.
    ───────────────────────────────────────────── */
 function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
   const [hovered, setHovered] = useState(false);
   const meta = LINK_META[id];
 
-  // Mobile: track touch state
   const [touched, setTouched] = useState(false);
   const isTouch = typeof window !== 'undefined' && window.matchMedia('(hover: none)').matches;
 
@@ -179,12 +117,11 @@ function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
   return (
     <a
       href={href}
-      className="bio-inline-link"
+      className={`bio-inline-link ${isActive ? 'is-active' : ''} ${isOtherHovered ? 'is-dimmed' : ''}`}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onClick={handleClick}
-      className={`bio-inline-link ${isActive ? 'is-active' : ''} ${isOtherHovered ? 'is-dimmed' : ''}`}
       style={{
         '--link-color': meta?.color ?? '#F5F5F5',
         fontFamily: isActive && meta?.font ? meta.font : "'Playfair Display', serif",
@@ -231,7 +168,6 @@ export default function Bio() {
   const sectionRef = useRef(null);
   const [isInView, setIsInView] = useState(false);
 
-  // Manual InView with IntersectionObserver for precise control
   useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
@@ -243,7 +179,6 @@ export default function Bio() {
     return () => obs.disconnect();
   }, []);
 
-  // Dismiss touch state when tapping outside a link
   useEffect(() => {
     const dismiss = (e) => {
       if (!e.target.closest('.bio-inline-link')) setHoveredId(null);
@@ -253,10 +188,7 @@ export default function Bio() {
   }, []);
 
   const isAnyHovered = hoveredId !== null;
-  const activeMeta = hoveredId ? LINK_META[hoveredId] : null;
-  const activePreview = activeMeta?.preview ?? null;
 
-  // Helper
   const L = (id, label, href = '#') => (
     <InlineLink
       id={id}
@@ -267,7 +199,6 @@ export default function Bio() {
     />
   );
 
-  // Sentence stagger: 100ms between each
   const BASE = 0;
   const GAP = 0.11;
 
@@ -295,21 +226,24 @@ export default function Bio() {
               direct {L('film-directed', 'one')},{' '}
             </Sentence>
             <Sentence delay={BASE + GAP * 6} isInView={isInView}>
-              perform {L('mime', 'mime on stage')},{' '}
+              perform {L('mime-acted', 'mime on stage')},{' '}
             </Sentence>
             <Sentence delay={BASE + GAP * 7} isInView={isInView}>
-              make a comic book called {L('comic', 'Incidental Findings')},{' '}
+              direct a {L('mime-directed', 'UV + LED performance')},{' '}
             </Sentence>
             <Sentence delay={BASE + GAP * 8} isInView={isInView}>
-              build {L('loremaxxing', 'Lore Maxxing')},{' '}
+              make a comic book called {L('comic', 'Incidental Findings')},{' '}
             </Sentence>
             <Sentence delay={BASE + GAP * 9} isInView={isInView}>
-              represent my college in {L('frisbee', 'ultimate frisbee')},{' '}
+              build {L('loremaxxing', 'Lore Maxxing')},{' '}
             </Sentence>
             <Sentence delay={BASE + GAP * 10} isInView={isInView}>
-              play the {L('keys', 'keys')}, obsess over Manchester United, and work towards an{' '}
+              represent my college in {L('frisbee', 'ultimate frisbee')},{' '}
             </Sentence>
             <Sentence delay={BASE + GAP * 11} isInView={isInView}>
+              play the {L('keys', 'keys')}, obsess over Manchester United, and work towards an{' '}
+            </Sentence>
+            <Sentence delay={BASE + GAP * 12} isInView={isInView}>
               {L('fa', 'English FA coaching badge')}.
             </Sentence>
           </p>
@@ -320,7 +254,7 @@ export default function Bio() {
             animate={isInView ? { opacity: 1 } : {}}
             transition={{ delay: BASE + GAP * 13, duration: 0.8 }}
           >
-            * tap any coloured word to explore
+            * tap any underlined word to discover more
           </motion.p>
         </div>
       </section>
