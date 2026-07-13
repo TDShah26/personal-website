@@ -18,19 +18,19 @@ const SCRIBBLE_PATHS = [
    ───────────────────────────────────────────── */
 export const LINK_META = {
   bessemer:        { color: '#C9A84C', scribbleIndex: 0 },
-  jpmc:            { color: '#C9A84C', scribbleIndex: 1 },
-  bcg:             { color: '#C9A84C', scribbleIndex: 2 },
-  bitspilani:      { color: '#C9A84C', scribbleIndex: 3 },
-  medium:          { color: '#C9A84C', scribbleIndex: 4 },
-  'films-acted':   { color: '#C9A84C', scribbleIndex: 0 },
-  'film-directed': { color: '#C9A84C', scribbleIndex: 1 },
-  'mime-acted':    { color: '#C9A84C', scribbleIndex: 2 },
-  'mimes-directed':{ color: '#C9A84C', scribbleIndex: 3 },
-  comic:           { color: '#C9A84C', scribbleIndex: 4 },
-  loremaxxing:     { color: '#C9A84C', scribbleIndex: 0 },
-  frisbee:         { color: '#C9A84C', scribbleIndex: 1 },
-  keys:            { color: '#C9A84C', scribbleIndex: 2 },
-  fa:              { color: '#C9A84C', scribbleIndex: 3 },
+  jpmc:            { color: '#7EB8D4', scribbleIndex: 1 },
+  bcg:             { color: '#6EC6A0', scribbleIndex: 2 },
+  bitspilani:      { color: '#E8A598', scribbleIndex: 3 },
+  medium:          { color: '#A8D8A8', scribbleIndex: 4 },
+  'films-acted':   { color: '#E8C07A', scribbleIndex: 0 },
+  'film-directed': { color: '#E8C07A', scribbleIndex: 1 },
+  'mime-acted':    { color: '#C9A0DC', scribbleIndex: 2 },
+  'mimes-directed':{ color: '#BF5FFF', scribbleIndex: 3 },
+  comic:           { color: '#E8A5B8', scribbleIndex: 4 },
+  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 0 },
+  frisbee:         { color: '#7EC8A0', scribbleIndex: 1 },
+  keys:            { color: '#E8D4A0', scribbleIndex: 2 },
+  fa:              { color: '#8AA8D4', scribbleIndex: 3 },
 };
 
 /* ─────────────────────────────────────────────
@@ -143,13 +143,15 @@ function ExpandingLink({ trigger, links, themeId }) {
       onMouseLeave={() => !isTouch && collapse()}
       onTouchStart={handleTouchStart}
     >
-      <AnimatePresence mode="popLayout" initial={false}>
+      <AnimatePresence mode="wait" initial={false}>
         {!expanded ? (
           /* ── Collapsed trigger ── */
           <motion.span
             key="trigger"
             className="expanding-trigger"
-            exit={{ opacity: 0, transition: { duration: 0.12 } }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0, transition: { duration: 0.1 } }}
           >
             {trigger}
             {/* On mobile, show a faint permanent scribble to hint it's interactive */}
@@ -177,9 +179,9 @@ function ExpandingLink({ trigger, links, themeId }) {
                   href={link.href}
                   className="expanding-sub-link"
                   style={{ '--link-color': color }}
-                  initial={{ opacity: 0, y: 5 }}
+                  initial={{ opacity: 0, y: 3 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.07, duration: 0.18 }}
+                  transition={{ delay: i * 0.05, duration: 0.15 }}
                 >
                   <span style={{ position: 'relative', display: 'inline-block' }}>
                     {link.label}
