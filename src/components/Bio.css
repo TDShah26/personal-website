@@ -101,7 +101,7 @@
    ═══════════════════════════════════════════════ */
 
 .expanding-link-container {
-  display: inline-block;
+  display: inline;
   position: relative;
   vertical-align: baseline;
   cursor: pointer;

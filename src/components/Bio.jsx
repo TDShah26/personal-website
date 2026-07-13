@@ -135,70 +135,54 @@ function ExpandingLink({ trigger, links, themeId }) {
   };
 
   return (
-    <motion.span
-      layout
+    <span
       className="expanding-link-container"
       style={{ '--link-color': color }}
       onMouseEnter={() => !isTouch && expand()}
       onMouseLeave={() => !isTouch && collapse()}
       onTouchStart={handleTouchStart}
     >
-      <AnimatePresence mode="wait" initial={false}>
-        {!expanded ? (
-          /* ── Collapsed trigger ── */
-          <motion.span
-            key="trigger"
-            className="expanding-trigger"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.1 } }}
-          >
-            {trigger}
-            {/* On mobile, show a faint permanent scribble to hint it's interactive */}
-            <ScribbleUnderline
-              color={color}
-              pathIndex={meta?.scribbleIndex ?? 0}
-              visible={isTouch}
-              opacity={0.35}
-            />
-          </motion.span>
-        ) : (
-          /* ── Expanded sub-links ── */
-          <motion.span
-            key="expanded"
-            className="expanding-links-group"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.1 } }}
-            transition={{ duration: 0.18 }}
-          >
-            {links.map((link, i) => (
-              <React.Fragment key={link.id}>
-                {i > 0 && <span className="expanding-sep"> / </span>}
-                <motion.a
-                  href={link.href}
-                  className="expanding-sub-link"
-                  style={{ '--link-color': color }}
-                  initial={{ opacity: 0, y: 3 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.05, duration: 0.15 }}
-                >
-                  <span style={{ position: 'relative', display: 'inline-block' }}>
-                    {link.label}
-                    <ScribbleUnderline
-                      color={color}
-                      pathIndex={(meta?.scribbleIndex ?? 0) + i + 1}
-                      visible={true}
-                      opacity={1}
-                    />
-                  </span>
-                </motion.a>
-              </React.Fragment>
-            ))}
-          </motion.span>
-        )}
-      </AnimatePresence>
-    </motion.span>
+      {!expanded ? (
+        /* ── Collapsed trigger ── */
+        <span className="expanding-trigger">
+          {trigger}
+          {/* On mobile, show a faint permanent scribble to hint it's interactive */}
+          <ScribbleUnderline
+            color={color}
+            pathIndex={meta?.scribbleIndex ?? 0}
+            visible={isTouch}
+            opacity={0.35}
+          />
+        </span>
+      ) : (
+        /* ── Expanded sub-links ── */
+        <span className="expanding-links-group">
+          {links.map((link, i) => (
+            <React.Fragment key={link.id}>
+              {i > 0 && <span className="expanding-sep"> / </span>}
+              <motion.a
+                href={link.href}
+                className="expanding-sub-link"
+                style={{ '--link-color': color }}
+                initial={{ opacity: 0, y: 3 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.04, duration: 0.15 }}
+              >
+                <span style={{ position: 'relative', display: 'inline-block' }}>
+                  {link.label}
+                  <ScribbleUnderline
+                    color={color}
+                    pathIndex={(meta?.scribbleIndex ?? 0) + i + 1}
+                    visible={true}
+                    opacity={1}
+                  />
+                </span>
+              </motion.a>
+            </React.Fragment>
+          ))}
+        </span>
+      )}
+    </span>
   );
 }
 
