@@ -263,7 +263,7 @@ export default function Hero() {
         animate={chromeTopAnimate}
         transition={chromeTransition}
       >
-        <span className="chrome-name">TANAY SHAH</span>
+        <span className="chrome-name">CREATE &gt; CONSUME</span>
         <span className="chrome-year">®2026</span>
       </motion.header>
 
