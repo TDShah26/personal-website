@@ -23,9 +23,10 @@ export const LINK_META = {
   'film-directed': { color: '#E8C07A', scribbleIndex: 3 },
   'mime-acted':    { color: '#C9A0DC', scribbleIndex: 4 },
   'mime-directed': { color: '#BF5FFF', scribbleIndex: 0 },
-  frisbee:         { color: '#7EC8A0', scribbleIndex: 1 },
-  comic:           { color: '#E8A5B8', scribbleIndex: 2 },
-  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 3 },
+  medium:          { color: '#A8D8A8', scribbleIndex: 1 },
+  frisbee:         { color: '#7EC8A0', scribbleIndex: 2 },
+  comic:           { color: '#E8A5B8', scribbleIndex: 3 },
+  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 4 },
 };
 
 /* ─────────────────────────────────────────────
@@ -260,7 +261,7 @@ export default function Bio() {
 
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 3} isInView={isInView}>
-            Right now I'm building {L('loremaxxing', 'Lore Maxxing', 'https://loremaxxing.base44.app/')}, practicing the piano,{' '}
+            Right now I'm building {L('loremaxxing', 'Lore Maxxing', 'https://loremaxxing.base44.app/')}, writing occasionally on {L('medium', 'Medium', 'https://medium.com/@tanaythewriter')}, practicing the piano,{' '}
             and working toward an English FA coaching badge.{' '}
           </Sentence>
           <Sentence delay={BASE + GAP * 4} isInView={isInView}>
