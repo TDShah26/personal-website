@@ -133,6 +133,21 @@ export default function Hero() {
     return () => clearInterval(intervalRef.current);
   }, [phase]);
 
+  /* ── lock scroll during intro animations ── */
+  useEffect(() => {
+    if (phase !== 'gallery') {
+      document.body.style.overflow = 'hidden';
+      document.documentElement.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    }
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
+  }, [phase]);
+
   const currentImage   = PORTFOLIO_IMAGES[imageIndex % PORTFOLIO_IMAGES.length];
   const isSplit        = phase === 'split' || phase === 'gallery';
   const showGallery    = phase === 'gallery';
