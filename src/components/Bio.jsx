@@ -143,8 +143,8 @@ function FloatingPreviewCard({ preview, color, visible }) {
 
 /* ─────────────────────────────────────────────
    INLINE LINK
-   Looks like plain text at rest.
-   On hover: scribble draws in, ↗ fades in.
+   At rest: muted accent color, italic serif.
+   On hover: full white, personality font, scribble draws in, ↗ fades in.
    ───────────────────────────────────────────── */
 function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
   const [hovered, setHovered] = useState(false);
@@ -184,16 +184,12 @@ function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
       onMouseLeave={handleMouseLeave}
       onTouchStart={handleTouchStart}
       onClick={handleClick}
+      className={`bio-inline-link ${isActive ? 'is-active' : ''} ${isOtherHovered ? 'is-dimmed' : ''}`}
       style={{
-        color: isOtherHovered ? 'rgba(245,245,245,0.3)' : 'var(--color-fg)',
+        '--link-color': meta?.color ?? '#F5F5F5',
         fontFamily: isActive && meta?.font ? meta.font : "'Playfair Display', serif",
         fontStyle: isActive && meta?.font ? 'normal' : 'italic',
         fontWeight: isActive && meta?.weight ? meta.weight : 400,
-        transition: 'color 0.3s ease, font-weight 0.2s ease',
-        position: 'relative',
-        display: 'inline-block',
-        textDecoration: 'none',
-        whiteSpace: 'nowrap',
       }}
     >
       {label}
@@ -201,7 +197,7 @@ function InlineLink({ id, label, href, onHoverChange, isAnyHovered }) {
         color={meta?.color ?? '#F5F5F5'}
         pathIndex={meta?.scribbleIndex ?? 0}
         visible={isActive || isTouch}
-        opacity={isTouch && !isActive ? 0.4 : 1}
+        opacity={isTouch && !isActive ? 0.35 : 1}
       />
     </a>
   );
@@ -279,10 +275,7 @@ export default function Bio() {
     <>
       <section className="bio-section" ref={sectionRef}>
         <div className="bio-inner">
-          <p
-            className="bio-para"
-            style={{ color: 'var(--color-fg)' }}
-          >
+          <p className="bio-para">
             <Sentence delay={BASE + GAP * 0} isInView={isInView}>
               I invest in frontier companies at {L('bessemer', 'Bessemer Venture Partners')}.{' '}
             </Sentence>
@@ -320,15 +313,17 @@ export default function Bio() {
               {L('fa', 'English FA coaching badge')}.
             </Sentence>
           </p>
+          {/* Mobile hint — hidden via CSS on desktop */}
+          <motion.p
+            className="bio-mobile-hint"
+            initial={{ opacity: 0 }}
+            animate={isInView ? { opacity: 1 } : {}}
+            transition={{ delay: BASE + GAP * 13, duration: 0.8 }}
+          >
+            * tap any coloured word to explore
+          </motion.p>
         </div>
       </section>
-
-      {/* Floating preview card — desktop only */}
-      <FloatingPreviewCard
-        preview={activePreview}
-        color={activeMeta?.color ?? '#F5F5F5'}
-        visible={isAnyHovered && activePreview !== null}
-      />
     </>
   );
 }
