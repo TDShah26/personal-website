@@ -25,8 +25,9 @@ export const LINK_META = {
   'mime-directed': { color: '#BF5FFF', scribbleIndex: 0 },
   medium:          { color: '#A8D8A8', scribbleIndex: 1 },
   frisbee:         { color: '#7EC8A0', scribbleIndex: 2 },
-  comic:           { color: '#E8A5B8', scribbleIndex: 3 },
-  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 4 },
+  comic:           { color: '#E8A5B8', scribbleIndex: 2 },
+  loremaxxing:     { color: '#7EC8E3', scribbleIndex: 3 },
+  fa:              { color: '#8AA8D4', scribbleIndex: 4 },
 };
 
 /* ─────────────────────────────────────────────
@@ -255,17 +256,14 @@ export default function Bio() {
             student short films, then directing {L('film-directed', 'one', 'https://youtu.be/pUg-crdxGhA?si=OCSkfPGz-CzBLa6O')};{' '}
             performing {L('mime-acted', 'mime', 'https://youtu.be/QLn-6B9fjyE?si=kA9itEFPDA1h0PWM')}, then directing {L('mime-directed', 'one', 'https://youtu.be/VPHHxnDNuAk?si=zbCINqP0Xy6KVxTb')};{' '}
             representing my college in {L('frisbee', 'ultimate frisbee', 'https://bitsufc.netlify.app/')};{' '}
-            and making a comic book called {L('comic', 'Incidental Findings', 'https://getvik.com/store/tanay-shah/product/incidental-findings')}.
+            making a comic book called {L('comic', 'Incidental Findings', 'https://getvik.com/store/tanay-shah/product/incidental-findings')};{' '}
+            and completing the introductory English FA {L('fa', 'coaching badge', '/fa-coaching-certificate.pdf')} (Manchester United could probably use the help).
           </Sentence>
         </p>
 
         <p className="bio-para">
           <Sentence delay={BASE + GAP * 3} isInView={isInView}>
-            Right now I'm building {L('loremaxxing', 'Lore Maxxing', 'https://loremaxxing.base44.app/')}, writing occasionally on {L('medium', 'Medium', 'https://medium.com/@tanaythewriter')}, practicing the piano,{' '}
-            and working toward an English FA coaching badge.{' '}
-          </Sentence>
-          <Sentence delay={BASE + GAP * 4} isInView={isInView}>
-            Manchester United could probably use the help.{' '}
+            Right now I'm building {L('loremaxxing', 'Lore Maxxing', 'https://loremaxxing.base44.app/')}, writing occasionally on {L('medium', 'Medium', 'https://medium.com/@tanaythewriter')}, and practicing the piano.
           </Sentence>
         </p>
 
